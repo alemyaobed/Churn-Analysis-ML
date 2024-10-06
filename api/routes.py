@@ -40,8 +40,8 @@ async def predict_churn(data: CustomerData):
         decision_churn = "Yes" if predictions["Decision Tree"] == 1 else "No"
 
         return {
-            "Logistic Regression Churn Prediction": logistic_churn,
-            "Decision Tree Churn Prediction": decision_churn
+            "Logistic Regression Churn Prediction with 78.54% accuracy": logistic_churn,
+            "Decision Tree Churn Prediction with 72.42% accuracy": decision_churn
         }
     
     except Exception as e:

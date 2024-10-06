@@ -201,6 +201,8 @@ model.fit(X_train, y_train)
 # Making predictions
 y_pred = model.predict(X_test)
 
+print('Evaluation of Logistic Regression Model\n')
+
 # Evaluating the model
 print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
@@ -222,6 +224,8 @@ dt_classifier.fit(X_train, y_train)
 
 # Make predictions
 y_pred_dt = dt_classifier.predict(X_test)
+
+print('Evaluation of Decision Tree Model\n')
 
 # Evaluate the model
 print(confusion_matrix(y_test, y_pred_dt))

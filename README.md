@@ -11,6 +11,7 @@ This project implements a machine learning pipeline to predict customer churn fo
 - [Data Cleaning and Preprocessing](#data-cleaning-and-preprocessing)
 - [Model Training](#model-training)
 - [Evaluation](#evaluation)
+- [API Documentation](#api-documentation)
 - [License](#license)
 
 ## Installation and Usage
@@ -35,11 +36,19 @@ The model and api are available in the repo along with the data set, so you coul
     pip install requirements.txt
     ```
 
-3. Testing using the api
+3. **Running the API**:
+
+   To run the API, execute the following command:
 
    ```bash
-   python your_script_name.py
+   uvicorn main:app --reload
    ```
+
+   This will start the API server, and you can access it at `http://localhost:8000` (or the specified port).
+
+4. **Testing using the API**:
+
+   To test the API, refer to the [API Documentation](#api-documentation) section for details on how to make requests.
 
 ## Data Description
 
@@ -145,6 +154,105 @@ Evaluation of Decision Tree Model
 weighted avg       0.73      0.72      0.73      1407
 
 Accuracy: 72.42%
+```
+
+## API Documentation
+
+The API allows users to interact with the customer churn prediction model. Users can submit customer data and receive a prediction on whether the customer is likely to churn.
+
+### Base URL
+
+```curl
+http://localhost:8000/
+```
+
+### Endpoints
+
+#### 1. Predict Churn
+
+- **URL**: `/predict`
+- **Method**: `POST`
+- **Description**: Predicts whether a customer will churn based on the provided customer data.
+
+##### Request
+
+- **Headers**:
+  - `Content-Type`: application/json
+- **Body**:
+
+```json
+{
+    "gender": "Male",
+    "SeniorCitizen": 0,
+    "Partner": "Yes",
+    "Dependents": "No",
+    "tenure": 12,
+    "PhoneService": "Yes",
+    "MultipleLines": "No",
+    "InternetService": "Fiber optic",
+    "OnlineSecurity": "Yes",
+    "OnlineBackup": "No",
+    "DeviceProtection": "No",
+    "TechSupport": "No",
+    "StreamingTV": "Yes",
+    "StreamingMovies": "Yes",
+    "Contract": "One year",
+    "PaperlessBilling": "Yes",
+    "PaymentMethod": "Credit card (automatic)",
+    "MonthlyCharges": 60.2,
+    "TotalCharges": 720.0
+}
+```
+
+##### Response
+
+- **Success Response**:
+  - **Code**: `200 OK`
+  - **Content**:
+
+```json
+{
+    "Logistic Regression Churn Prediction with 78.54% accuracy": "No",
+    "Decision Tree Churn Prediction with 72.42% accuracy": "No"
+}
+```
+
+- **Error Response**:
+  - **Code**: `400 Bad Request`
+  - **Content**:
+
+```json
+{
+    "detail": "Invalid input data."
+}
+```
+
+### Example cURL Request
+
+```bash
+curl -X POST http://localhost:8000/predict \
+-H "Content-Type: application/json" \
+-d '{
+    "gender": "Male",
+    "SeniorCitizen": 0,
+    "Partner": "Yes",
+    "Dependents": "No",
+    "tenure": 12,
+    "PhoneService": "Yes",
+    "MultipleLines": "No",
+    "InternetService": "Fiber optic",
+    "OnlineSecurity": "Yes",
+    "OnlineBackup": "No",
+    "DeviceProtection": "No",
+    "TechSupport": "No",
+    "StreamingTV": "Yes",
+    "StreamingMovies": "Yes",
+    "Contract": "One year",
+    "PaperlessBilling": "Yes",
+    "PaymentMethod": "Credit card (automatic)",
+    "MonthlyCharges": 60.2,
+    "TotalCharges": 720.0
+}'
 ```
 
 ## License
